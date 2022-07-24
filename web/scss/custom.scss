@@ -1,0 +1,602 @@
+$hachiPurple: #4111CA;
+$hachiLightPurple:  #D2C6F4;
+$hachiGray: #1E1E1E;
+$hachiDarkerGray: #111111;
+$hachiYellow: #e7b614;
+
+
+$theme-colors:(
+  "hachiPurple": #4111CA,
+  "hachiYellow": #e7b614
+);
+
+
+
+@mixin general-bg {
+  background-color: #171717;
+}
+
+@font-face{
+  font-family: 'MADE_Tommy_Soft';
+  src: url('../resources/fonts/MADE_Tommy_Soft_Regular.otf') format('OpenType');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@mixin makeTitle{
+  font-family: 'MADE_Tommy_Soft';
+  font-size: 50px;
+  font-weight: bold;
+  color: #f5f5f5;
+}
+
+@mixin makeTitle2{
+  font-family: 'MADE_Tommy_Soft';
+  font-size: 50px;
+  font-weight:normal;
+  color: #f5f5f5;
+}
+
+@mixin text{
+  font-family: 'MADE_Tommy_Soft';
+  font-size: 20px;
+  font-weight: lighter;
+}
+
+
+@mixin purpleButton{
+  border-radius: 20px;
+  border-style: none ;
+  margin: 2px;
+  background-color: #4111CA;
+  font-family: 'MADE_Tommy_Soft';
+  font-size: 20px;
+  color: #f5f5f5;
+}
+
+@mixin whiteForm{
+  background-color: #f5f5f5;
+  font-family: 'MADE_Tommy_Soft';
+  color: #1d1d1d;
+  border-radius: 20px;
+  margin: 10px;
+}
+
+@mixin inputForm {
+  border-radius: 10px;
+  margin-bottom: 25px;
+  margin-top: 5px;
+  font-weight: bold;
+  }
+
+@mixin purpleLine{  
+  background-color: #4111CA;
+}
+
+@mixin boxPurpleBorder{
+ padding: 10px;
+ border-style: solid;
+ border: none;
+ box-shadow: inset 0 0 0 3px #4111CA;
+}
+
+@mixin icon{
+  background-size:cover;
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+}
+
+@mixin box {
+  padding: 1rem;
+  margin: 1rem;
+  background-color: $hachiGray;
+  border-style: solid;
+  border-color: $hachiPurple;
+  width: 100%;
+}
+
+
+html{
+  @include general-bg();
+}
+
+.hive {
+  background-image: url('../resources/img/purpleHiveLowOpacity.png');
+}
+
+footer{
+  @include general-bg();
+}
+
+.navbar{
+  margin-top: 10px;
+  background-color: #171717;
+  color: #f5f5f5;
+}
+
+#logo{
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+}
+
+#hachiLogoFooter{
+  height:100px;
+  width: auto;
+  margin: 20px;
+}
+
+/*
+            I c o n s
+*/
+
+.icon-new{
+  background-image: url(../resources/icons/new.png);
+  @include icon();
+}
+
+.icon-task{
+  background-image: url(../resources/icons/icon-task.png);
+  @include icon();
+}
+
+.icon-post{
+  background-image: url(../resources/icons/icon-post.png);
+  @include icon();
+}
+
+.icon-member{
+  background-image: url(../resources/icons/icon-member.png);
+  @include icon();
+}
+
+.icon-comment{
+  background-image: url(../resources/icons/icon-comment.png);
+  @include icon();
+}
+
+.icon-send{
+  background-image: url(../resources/icons/send.png);
+  @include icon();
+}
+
+.icon-menu{
+  background-image: url(../resources/icons/icon-menu.png);
+  @include icon();
+}
+
+.icon-hive{
+  background-image: url(../resources/icons/hive-menu.png);
+  @include icon();
+}
+
+.icon-home{
+   background-image: url(../resources/icons/icon-home.png);
+   @include icon();
+}
+
+.icon-add{
+  background-image: url(../resources/icons/icon-add.png);
+  @include icon();
+}
+
+.icon-edit{
+  background-image: url(../resources/icons/icon-edit.png);
+  @include icon();
+  cursor: pointer;
+}
+
+.icon-hexagon{
+  background-image: url(../resources/icons/icon-hexagon.png);
+  @include icon();
+  cursor: pointer;
+}
+
+.icon-bee{
+  background-image: url(../resources/icons/icon-bee.png);
+  @include icon();
+  margin-left: 21px;
+}
+
+.icon-logout{
+  background-image: url(../resources/icons/icon-logout.png);
+  @include icon();
+  margin-left: 40px;
+}
+
+
+
+
+.hachiLogoMenu{
+  font-family: 'MADE_Tommy_Soft';
+  font-weight: bold;
+  font-size: 30px;
+  color: rgb(255, 255, 255);
+}
+
+
+.hachiTextMenu{
+  font-family: 'MADE_Tommy_Soft';
+  color: rgb(255, 255, 255);
+  list-style: none;
+  text-decoration: none;
+}
+
+.hachiTextFooter{
+  font-family: 'MADE_Tommy_Soft';
+  font-size: 23px;
+  margin-top: 53px;
+  color: rgb(255, 255, 255);
+}
+
+.regularText{
+  font-family: 'MADE_Tommy_Soft';
+  font-size: 25px;
+  font-stretch: expanded;
+  font-weight: lighter;
+  color: #f5f5f5;
+  line-height: 50px;
+}
+
+.normalText{
+  @include text();
+  color: #f5f5f5;
+  margin: 5px;
+}
+
+.main h3 {
+  font-family: 'MADE_Tommy_Soft';
+  font-size: 15px;
+  color: #f5f5f5;
+}
+
+.nav-item :hover{
+  font-family: 'MADE_Tommy_Soft';
+  color: #4111CA;
+}
+
+.navbar .btn-default-round-md{
+  @include purpleButton();
+}
+
+.navbar .btn-primary-round-md{
+  border-radius: 20px;
+  background-color: none;
+  font-family: 'MADE_Tommy_Soft';
+  font-size: 20px;
+  color: #f5f5f5
+}
+.navbar .btn-primary-round-md:hover{
+  color: #4111CA;
+}
+
+.dropdown-menu.show{
+  background-color: $hachiDarkerGray;
+  border-style: none;
+  border-radius: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.dropdown-menu.show .dropdown-item{
+  color:#f5f5f5;
+  border-radius: 20px;
+}
+
+.dropdown-menu.show .dropdown-divider{
+  background-color:$hachiPurple;
+}
+
+.dropdown-menu.show .dropdown-item:hover{
+  color:$hachiYellow;
+  border-radius: 20px;
+  background-color: #171717;
+}
+
+
+.main{
+ @include general-bg();
+ padding: .1% 5%;
+}
+
+.bigTitle{
+  @include makeTitle();
+}
+
+.mediumTitle{
+  @include makeTitle2();
+}
+
+form {
+ @include whiteForm();
+ padding: 50px 70px 70px 70px;  
+}
+
+form .form-control{
+ @include inputForm();
+ background-color: #D2C6F4;
+}
+
+.secondForm form{
+ background-color: #171717;
+ padding: 0%
+
+}
+
+.secondForm form .trans{
+  border-style: none;
+  background: none;
+
+}
+
+.darkTextArea{
+  @include box();
+  border-radius: 50px;
+  height: 40px;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-height: 40px;
+  color: #f5f5f5;
+  padding: 10px;
+}
+
+
+/* 
+          SIDE BAR 
+*/
+#side_nav{
+  border-right-style: solid;
+  border-right-color: #4111CA;
+  border-width: 1px;
+
+}
+
+
+.sidebar li a{
+  color: #f5f5f5;
+  margin: 10px;
+}
+
+.sidebar ul li .tooltip{
+  position: absolute;
+  left: 145px;
+  transform: translateY(-50%);
+  background: #f5f5f5;
+  line-height: 30px;
+  border-radius: 30px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0s;
+  height: 28px;
+  width: 80px;
+  color: #1E1E1E;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  font-family: 'MADE_Tommy_Soft';
+}
+
+.sidebar ul li:hover .tooltip{
+  transition: all 0.5s ease;
+  opacity: 1;
+
+}
+
+.task-butt a .tip{
+  position: absolute;
+  left: 86%;
+  transform: translateY(-50%);
+  background: #f5f5f5;
+  line-height: 30px;
+  border-radius: 30px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0s;
+  height: 28px;
+  width: 150px;
+  color: #1E1E1E;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  font-family: 'MADE_Tommy_Soft';
+}
+
+
+.task-butt a:hover .tip{
+    transition: all 0.5s ease;
+    opacity: 1;
+}
+
+
+
+input[type="checkbox"]{
+  appearance: none;
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  position: relative;
+  cursor: pointer;
+  background-image: url('../resources/icons/purplebox.png');
+}
+  
+input[type="checkbox"]:checked{
+  padding: 3px;
+  content: url('../resources/icons/palomita.png');
+}
+
+textarea{
+  width: 100%
+}
+    
+form .btn-lg, body .modal .modal-content form .btn-lg{
+  @include purpleButton();
+  margin: 20px;
+}
+
+.main footer hr{
+  @include purpleLine();
+  margin: 3rem 0;
+  height: 3px;
+}
+
+body .main hr{
+  @include purpleLine();
+  height: 3px;
+}
+.input-container{
+  position: relative;
+}
+
+.input-icon{
+  height: 1em;
+  width: 1em;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.darker-box{
+  padding: 2rem;
+  background-color: $hachiDarkerGray;
+  border-radius: 20px;
+}
+
+.project-box{
+  padding: 1rem;
+  margin: 1rem;
+  background-color: $hachiGray;
+  border-radius: 20px;
+  border: none;
+  @include makeTitle();
+  font-size: 25px;
+}
+
+.create-add-button{
+  padding: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  background-color: $hachiGray;
+  border-radius: 20px;
+  border: solid;
+  border-color: $hachiPurple;
+  @include makeTitle();
+  font-size: 25px;
+}
+
+.section-tag{
+  border-radius: 20px;
+  border: none;
+}
+
+/* 
+    Poner diferente cursor en cajas de proyecto && barra inferior de project.html
+*/
+.projects-bar .project-box:hover{
+  transform: scale(103%);
+  cursor: pointer;
+}
+.project-box.selected{
+  @include boxPurpleBorder();
+  transform: scale(103%);
+}
+
+.section-tag:hover{
+  transform: scale(103%);
+  cursor: pointer;
+}
+.section-tag.selected{
+  @include boxPurpleBorder();
+  transform: scale(103%);
+}
+
+
+.project-box span.project-owner, .project-box-selected span.project-owner{
+  font-size: 12px;
+}
+
+.si-visible{
+  display: block !important;
+}
+.si-visible-project{
+  display: flex !important;
+}
+.no-visible{
+  display: none !important;
+}
+
+.taskbox{
+  @include boxPurpleBorder();
+  border-radius: 20px;
+  font-size: 10px;
+  margin-top: 10px;
+}
+
+.task-type{
+  margin-top: 1rem;
+}
+
+.desc-box{
+  @include box();
+  border-radius: 10px;
+  border-width: 1px;
+}
+
+.form-create-project, .form-add-member, .form-create-task, .form-join-project {
+  @include whiteForm();
+  padding: 0 20px 20px 20px;
+}
+
+.editableField{
+  @include box();
+  @include text();
+  width: 50%;
+  border-radius: 10px;
+  color:#f5f5f5;
+}
+
+
+.editableField:disabled{
+  @include box();
+  @include text();
+  width: 50%;
+  border-radius: 10px;
+  color: $hachiYellow; 
+
+}
+
+
+body .modal .modal-content .modal-header .modal-title{
+  font-family: 'MADE_Tommy_Soft';
+  font-size: 30px;
+  font-weight: bold;
+  color: $hachiGray;
+}
+
+body .modal .modal-content .modal-header, body .modal .modal-content .modal-footer{
+ border-style: none;
+}
+
+body .modal .modal-content .modal-body{
+  padding-top: 0;
+}
+
+body .modal-content{
+  padding:0;
+  background-color: #f5f5f5;
+  font-family: 'MADE_Tommy_Soft';
+  border-radius: 20px;
+  @include text();
+}
+
+
+body .modal-content hr{
+  border-bottom-style: solid;
+  border-color: $hachiPurple;
+  border-width: 3px;
+  opacity: 1;
+  margin-top: 0;
+}
+
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../node_modules/bootstrap/scss/bootstrap";

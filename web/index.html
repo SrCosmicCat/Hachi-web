@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign up in Hachi</title>
+        <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">-->
+        <link rel="icon" href="resources/img/Hachi_logo_yellowremastered.png">
+        <link rel="stylesheet" href="scss/custom.css">
+    </head>
+    <body>
+        <!-- Here we go :rosel2: -->     
+        <!-- Navbar toogle-->
+        <nav class="navbar navbar-expand-sm">
+            <div class="container">
+                <a href="#" class="navbar-brand">
+                    <img id="logo" src="resources/img/Hachi_logo_yellowremastered.png" alt="Hachi's logo brand">
+                    <span class="hachiLogoMenu">Hachi</span>
+                </a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
+                    <span class="navar-toggler-icon"></span>
+                </button>
+                <div  class="collapse navbar-collapse" id="navbar-nav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link"> 
+                                <span class="hachiTextMenu">About</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="hachiTextMenu">FAQ</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-nav justify-content-end">
+                    <button type="button" class="btn btn-primary-round-md" id="btn-log-in"> Log in</button>
+                    <button type="button" class="btn btn-default-round-md" id="btn-sign-up"> Sign up</button>  
+                </div>
+            </div>
+        </nav>  
+        <div class="main">
+            <div class="container">
+                <hr>
+                <div class="hive">
+                    <div class="row">
+                        <div class="col-md mt-5">
+                            <h1 class="bigTitle">Organize Projects, Invite Colaborators, Assign Tasks And Much More!</h1>
+                            <br><br>
+                            <h2 class="regularText">Hachi is the platform where you can create, manage and colaborate on projects. Make your own project and invite your team to help you!</h2>
+                        </div>
+                    
+                        <!--FORM SIGN UP-->
+                        <div class="col-md mt-3">
+                            <form class="si-visible" id="form-sign-up" method="POST" action="UserRegister">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="inputFullName">Full Name</label>
+                                        <div class="input-container">
+                                            <input type="text" class="form-control" id="inputFullName" name="name" placeholder="Full name" maxlength="50">
+                                            <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorName" alt="ERROR">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="inputUsername">Username</label>
+                                        <div class="input-container">
+                                            <input type="text" class="form-control" id="inputUsername" name="username" placeholder="Username" maxlength="30">
+                                            <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorUsername" alt="ERROR">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="inputEmail">Email</label>
+                                        <div class="input-container">
+                                            <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" maxlength="60">
+                                            <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorEmail" alt="ERROR">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="inputPasword">Password</label>
+                                        <div class="input-container">
+                                            <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" maxlength="30">
+                                            <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorPassword" alt="ERROR">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1">
+
+                                            <input type="checkbox" name="terms" id="inputTerms" class="custom-control-input">
+                                        </div>
+                                        <div class="col-md-11">
+                                            <label for="inputTerms"> I have read and accept the terms and conditions </label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-lg">Create account</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!--FORM LOGIN-->
+                            <form class="no-visible" id="form-log-in" action="Login" method="POST">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="inputEmailUsername">Email or username</label>
+                                        <div class="input-container">
+                                            <input type="text" class="form-control" name="emailUsernameLogin" id="inputEmailUsername" placeholder="Email or username" maxlength="60">
+                                            <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorUsernameEmail" alt="ERROR"> 
+                                        </div>
+                                        <label for="inputPasswordLogin">Password</label>
+                                        <div class="input-container">
+                                            <input type="password" class="form-control" name="passwordLogin" id="inputPasswordLogin" placeholder="Password" maxlength="30">
+                                            <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorPasswordLogin" alt="ERROR">
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-lg">Log in</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer -->
+                <footer class="footer">       
+                    <hr>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <img id="hachiLogoFooter" src="resources/img/Hachi_logo_letters_horizontal.png" alt="Hachi's logo brand">
+                        </div>
+                        <div class="col-md-6">
+                            <h1 class="hachiTextFooter">Hachi Ver 1.0 Copyright &copy; 2022. All rights reserved. </h1>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+        <!--TOASTS-->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastUsername" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="resources/img/Hachi_logo_yellowremastered.png" class="rounded me-2" alt="Hachi logo" height="20">
+                    <strong class="me-auto">Hachi</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Invalid username. Try another!
+                </div>
+            </div>
+        </div>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastEmail" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="resources/img/Hachi_logo_yellowremastered.png" class="rounded me-2" alt="Hachi logo" height="20">
+                    <strong class="me-auto">Hachi</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Invalid email. Try another!
+                </div>
+            </div>
+        </div>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastLogin" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="resources/img/Hachi_logo_yellowremastered.png" class="rounded me-2" alt="Hachi logo" height="20">
+                    <strong class="me-auto">Hachi</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Invalid email/username or password.
+                </div>
+            </div>
+        </div>
+        
+        <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>        
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+</html>
