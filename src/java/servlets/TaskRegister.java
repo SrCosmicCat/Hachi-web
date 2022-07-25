@@ -22,11 +22,6 @@ public class TaskRegister extends HttpServlet {
                 HttpSession session = request.getSession();
                 User[] membersProject = connection.getProjectMembers(Integer.parseInt(session.getAttribute("idProj").toString()));
                 
-                System.out.println("Project members: ");
-                for (int i = 0; i<membersProject.length; i++) {
-                    System.out.println(membersProject[i].getId() +" "+ membersProject[i].getName());
-                }
-                
                 Task t = new Task();
                 
                 User actualUser = connection.getUserById(Integer.parseInt(session.getAttribute("idUser").toString()));
@@ -36,9 +31,6 @@ public class TaskRegister extends HttpServlet {
                 t.setName(request.getParameter("taskName"));
                 t.setDescription(request.getParameter("taskDescription"));
                 t.setDate(request.getParameter("taskDate"));
-                          
-                String parameter = "";
-               
                 
                 //Insert task in db
                 System.out.println("ID assign user: "+assignUser.getId());
@@ -46,6 +38,6 @@ public class TaskRegister extends HttpServlet {
 
                 System.out.println("Task inserted");
                 
-                response.sendRedirect("project.jsp?"+parameter);
+                response.sendRedirect("project.jsp?");
     }
 }

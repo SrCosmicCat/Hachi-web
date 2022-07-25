@@ -8,11 +8,18 @@
     ConnectionDB connection = new ConnectionDB();
     session = request.getSession();
     
+    if (session.getAttribute("idUser") == null){
+        response.sendRedirect("index.html");
+    }
+    
     
     int actualProject = 0;
     User admin = new User();
     //Get user projects
     Project[] userProjects = connection.getUserProjects(Integer.parseInt(session.getAttribute("idUser").toString()));
+    int totalTasks;
+    int totalTasksCompleted;
+    int percent = 0;
     
     if (!(request.getParameter("project") == null || Integer.parseInt(request.getParameter("project")) > userProjects.length-1 || Integer.parseInt(request.getParameter("project")) < 0)) {
         actualProject = Integer.parseInt(request.getParameter("project"));
@@ -22,10 +29,17 @@
         //Set id from the first project
         session.setAttribute("idProj",userProjects[actualProject].getId());
         admin = connection.getProjectAdmin(Integer.parseInt(session.getAttribute("idProj").toString()));
+        
+        totalTasks = connection.getTotalNumTasks(connection.getUserById(Integer.parseInt(session.getAttribute("idUser").toString())), userProjects[actualProject]);
+        totalTasksCompleted = connection.getTotalNumComTask(connection.getUserById(Integer.parseInt(session.getAttribute("idUser").toString())), userProjects[actualProject]);
+        
+        if (totalTasks != 0){
+            percent = Math.round(totalTasksCompleted * 100 / totalTasks);
+        }
+        else {
+            percent = 0;
+        }
     }
-    
-    
-    
 
     //[1] OBTENER TODOS LOS DATOS DE TODOS LOS PROYECTOS DONDE ESTÉ EL USUARIO X
     //[0] OBTENER EL NOMBRE Y USERNAME DEL ADMINISTRADOR DEL PROYECTO X
@@ -75,7 +89,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button" style="color:#4111CA" id="navDropDownLink" 
                             aria-haspopup="true" aria-expanded="false">
-                            <span class="hachiTextMenu">Account</span>
+                            <span class="hachiTextMenu"><%=session.getAttribute("name")%></span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
@@ -206,9 +220,9 @@
                                                     out.print("<span class=\"regularText\">Overview</span>");
                                                     out.print("<h3>Completed Tasks</h3>");
                                                     out.print("<div class=\"progress\" style=\"height: 25px; border:solid; border-width: 4px; border-color: #4111CA\">");
-                                                        out.print("<div class=\"progress-bar bg-hachiYellow\"  style=\"width: 58%;\"></div>");
+                                                        out.print("<div class=\"progress-bar bg-hachiYellow\"  style=\"width: "+percent+"%;\"></div>");
                                                     out.print("</div>");
-                                                    out.print("<h3 class=\"d-flex justify-content-center mt-2\">58%</h3>");
+                                                    out.print("<h3 class=\"d-flex justify-content-center mt-2\">"+percent+"%</h3>");
                                                 out.print("</div>");
                                             }
                                         %>

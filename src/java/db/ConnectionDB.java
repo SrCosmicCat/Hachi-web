@@ -195,7 +195,7 @@ public class ConnectionDB {
         //Obtain the date
         LocalDate date = LocalDate.now();
         //Generate sql query for update task to completed
-        String sql = "UPDATE TASK SET state = TRUE WHERE id_task = "+t.getId()+")";
+        String sql = "UPDATE TASK SET state = TRUE WHERE id_task = "+t.getId();
         //Generate sql query for insertion in table realice
         String sql2 = "INSERT INTO realice VALUES("+u.getId()+","+t.getId()+",'"+date+"')";
         
@@ -224,6 +224,23 @@ public class ConnectionDB {
             connect();
             int regs = smt.executeUpdate(sql);
             smt.executeUpdate(sql2);
+            disconnect();
+            return regs;
+        }
+        catch (SQLException ex) {
+            System.out.println(ex+sql);
+            return 0;
+        }
+    }
+    
+    public int sendCommentTask(Comment c) {
+        //Obtain the date
+        LocalDate date = LocalDate.now();
+        //Generate sql query
+        String sql = "INSERT INTO comment_t (desc_com, date_com, id_user6, id_task3) VALUES('"+c.getDescription()+"','"+date+"',"+c.getIdUser()+","+c.getIdTask()+")";
+        try {
+            connect();
+            int regs = smt.executeUpdate(sql);
             disconnect();
             return regs;
         }
@@ -682,6 +699,42 @@ public class ConnectionDB {
                 task.setDate(rs.getString("date_task"));
                 task.setCompleted(rs.getBoolean("state"));
                 task.setId_project(rs.getInt("id_proj1"));
+                task.setId_user(idUser);
+                list.add(task);
+            }
+            Task[] strArray = new Task[list.size()];
+            strArray = list.toArray(strArray);
+            
+            disconnect();
+            return strArray;
+        }
+        catch (SQLException ex) {
+            System.out.println(ex+sql);
+            return null;
+        }
+    }
+    
+    public Task[] getProjectTasks(int idProj) {
+        //Generate sql query
+        String sql = "CALL getProjectTasks("+idProj+")";
+        
+        try {
+            List<Task> list = new ArrayList<>();
+            connect();
+            //execute sql query
+            rs = smt.executeQuery(sql);
+            
+            //obtain values of tasks
+            while(rs.next()) {
+                //Creates a tasks to send
+                Task task = new Task();
+                task.setId(rs.getInt("id_task"));
+                task.setName(rs.getString("name_task"));
+                task.setDescription(rs.getString("desc_task"));
+                task.setDate(rs.getString("date_task"));
+                task.setCompleted(rs.getBoolean("state"));
+                task.setId_project(rs.getInt("id_proj1"));
+                task.setId_user(rs.getInt("id_user7"));
                 list.add(task);
             }
             Task[] strArray = new Task[list.size()];
@@ -718,6 +771,7 @@ public class ConnectionDB {
                 task.setDate(rs.getString("date_task"));
                 task.setCompleted(rs.getBoolean("state"));
                 task.setId_project(rs.getInt("id_proj1"));
+                task.setId_user(idUser);
                 list.add(task);
             }
             Task[] strArray = new Task[list.size()];
@@ -754,6 +808,7 @@ public class ConnectionDB {
                 task.setDate(rs.getString("date_task"));
                 task.setCompleted(rs.getBoolean("state"));
                 task.setId_project(rs.getInt("id_proj1"));
+                task.setId_user(idUser);
                 list.add(task);
             }
             Task[] strArray = new Task[list.size()];
@@ -790,6 +845,7 @@ public class ConnectionDB {
                 task.setDate(rs.getString("date_task"));
                 task.setCompleted(rs.getBoolean("state"));
                 task.setId_project(rs.getInt("id_proj1"));
+                task.setId_user(idUser);
                 list.add(task);
             }
             Task[] strArray = new Task[list.size()];
@@ -824,6 +880,7 @@ public class ConnectionDB {
                 task.setDate(rs.getString("date_task"));
                 task.setCompleted(rs.getBoolean("state"));
                 task.setId_project(rs.getInt("id_proj1"));
+                task.setId_user(idUser);
                 list.add(task);
             }
             Task[] strArray = new Task[list.size()];
@@ -838,7 +895,7 @@ public class ConnectionDB {
         }
     }
     
-     public Comment[] getTaskComments(Task t) {
+public Comment[] getTaskComments(Task t) {
         //Generate sql query
         String sql = "CALL getTaskComments("+t.getId()+")";
         
@@ -869,6 +926,52 @@ public class ConnectionDB {
         }
     }
     
+public int getTotalNumTasks(User u, Project p) {
+        //Generate sql query
+        String sql = "CALL getTotalNumTasks("+u.getId()+","+p.getId()+")";
+        int tasks = 0;
+        try {
+            
+            connect();
+            //execute sql query
+            rs = smt.executeQuery(sql);
+            
+            //obtain values of tasks
+            while(rs.next()) {
+                tasks = rs.getInt(1);
+            }
+            disconnect();
+            return tasks;
+        }
+        catch (SQLException ex) {
+            System.out.println(ex+sql);
+            return tasks;
+        }
+    }
+
+public int getTotalNumComTask(User u, Project p) {
+        //Generate sql query
+        String sql = "CALL getTotalNumComTask("+u.getId()+","+p.getId()+")";
+        int tasks = 0;
+        try {
+            
+            connect();
+            //execute sql query
+            rs = smt.executeQuery(sql);
+            
+            //obtain values of tasks
+            while(rs.next()) {
+                tasks = rs.getInt(1);
+            }
+            disconnect();
+            return tasks;
+        }
+        catch (SQLException ex) {
+            System.out.println(ex+sql);
+            return tasks;
+        }
+    }
+     
     public String genRandomString(int s) {
         UUID randomUUID = UUID.randomUUID();
         return (randomUUID.toString().replaceAll("-", "")).substring(0,s);

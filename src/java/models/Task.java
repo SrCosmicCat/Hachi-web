@@ -1,7 +1,7 @@
 package models;
 
 public class Task {
-    int id, id_project;
+    int id, id_project, id_user;
     String name, description, date;
     boolean completed;
 
@@ -55,4 +55,13 @@ public class Task {
     public void setCompleted(boolean state) {
         this.completed = state;
     }
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
+    
 }

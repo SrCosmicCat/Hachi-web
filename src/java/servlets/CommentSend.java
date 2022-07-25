@@ -10,21 +10,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Task;
 import models.User;
+import models.Comment;
 
-@WebServlet(name = "CompleteTask", urlPatterns = {"/CompleteTask"})
-public class CompleteTask extends HttpServlet {
+@WebServlet(name = "CommentSend", urlPatterns = {"/CommentSend"})
+public class CommentSend extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 ConnectionDB connection = new ConnectionDB();
                 HttpSession session = request.getSession();
+                User u = connection.getUserById(Integer.parseInt(session.getAttribute("idUser").toString()));
+                Task t = connection.getTaskById(Integer.parseInt(session.getAttribute("idTask").toString()));
+                Comment c = new Comment();
+                c.setDescription(request.getParameter("newComment"));
+                c.setIdUser(u.getId());
+                c.setIdTask(t.getId());
                 
-                User actualUser = connection.getUserById(Integer.parseInt(session.getAttribute("idUser").toString()));
-                Task task = connection.getTaskById(Integer.parseInt(session.getAttribute("idTask").toString()));
-                
-                connection.completeTask(task, actualUser);
-                
-                System.out.println("Task completed");
+                connection.sendCommentTask(c);
     }
+    
 }

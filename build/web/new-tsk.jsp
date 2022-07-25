@@ -11,17 +11,25 @@
     
     //Get user actual project
     Project actualProject = connection.getProjectById(Integer.parseInt(session.getAttribute("idProj").toString()));
-    //Get user tasks and actual task
-    Task[] userTasks = connection.getUserTasks(Integer.parseInt(session.getAttribute("idUser").toString()),Integer.parseInt(session.getAttribute("idProj").toString()));
     
+    User admin = connection.getProjectAdmin(Integer.parseInt(session.getAttribute("idProj").toString()));
+    
+    //Get user tasks and actual task
+    Task[] userTasks;
+    
+    if (admin.getId() == Integer.parseInt(session.getAttribute("idUser").toString())) {
+        userTasks = connection.getProjectTasks(Integer.parseInt(session.getAttribute("idProj").toString()));
+    }
+    else {
+        userTasks = connection.getUserTasks(Integer.parseInt(session.getAttribute("idUser").toString()),Integer.parseInt(session.getAttribute("idProj").toString()));
+    }
     if (!(request.getParameter("tskId") == null || Integer.parseInt(request.getParameter("tskId")) > userTasks.length-1 || Integer.parseInt(request.getParameter("tskId")) < 0)) {
         actualTask = userTasks[Integer.parseInt(request.getParameter("tskId").toString())];
     }
     else {
         actualTask = userTasks[0];
     }
-    
-    User admin = connection.getProjectAdmin(Integer.parseInt(session.getAttribute("idProj").toString()));
+    session.setAttribute("idTask", actualTask.getId());
     
 %>
 <!DOCTYPE html>
@@ -56,7 +64,7 @@
                             <div class="sidebar" id="side_nav">
                                 <ul class="list-unstyled px-2">
                                     <li class="item pt-4">
-                                        <a href="home.jsp" class="text-decoration-none px-2">
+                                        <a href="home.jsp?project=<%=request.getParameter("project")%>" class="text-decoration-none px-2">
                                             <svg class="icon-home"></svg>
                                             <span class="tooltip">Home</span>
                                         </a>
@@ -101,9 +109,9 @@
                                     </div>
                                     </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-1 <%if (admin.getId() == Integer.parseInt(session.getAttribute("idUser").toString()) && admin.getId() != actualTask.getId_user()) {out.print("no-visible");}%> ">
                                     <div class="task-butt">
-                                        <a class="hachiTextMenu" onClick="completeTask(<%=actualTask.getId()%>)">
+                                        <a class="hachiTextMenu" onClick="completeTask()">
                                             <img src="resources/icons/complete.png" class="mt-3">
                                             <span class="tip">Mark as completed</span>
                                         </a>
@@ -134,28 +142,29 @@
                                         <%
                                             Comment[] taskComments = connection.getTaskComments(actualTask);
                                             
+                                            for (int i=0; i<taskComments.length; i++) {
+                                                out.print("<div class=\"desc-box\">");
+                                                    out.print("<h3>"+taskComments[i].getAuthor()+" | "+taskComments[i].getDate()+"</h3>");
+                                                    out.print("<h3 class=\"normal-text\">"+taskComments[i].getDescription()+"</h3>");
+                                                out.print("</div>");
+                                            }
                                         %>
-                                        <!--Comentarios-->
-                                        <div class="desc-box">
-                                            <h3 class="normalText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error odit ipsam hic, sunt dignissimos inventore ad consequuntur optio excepturi consequatur est eos quisquam alias sequi quaerat laboriosam ab? Exercitationem, provident.</h3>
-                                        </div>
+                                        
                                     </div>
                                     <div class="row">
-                                        <div class="col-md">
-                                            <div class="secondForm">
-                                                <form action="sendComment" class="">
-                                                    <div class="row"> 
-                                                        <div class="col-md-11">       
-                                                            <textarea class="darkTextArea" id="newComment" name="name" placeholder="Leave a comment"></textarea>
-                                                        </div>
-                                                        <div class="col-md-1 mt-4 d-flex justify-content-center">
+                                        <div class="secondForm">
+                                            <form action="CommentSend" id="formCommentSend" method="POST">
+                                                <div class="row"> 
+                                                    <div class="col-md-11">       
+                                                        <textarea class="darkTextArea" id="newComment" name="newComment" placeholder="Leave a comment" maxlength="100"></textarea>
+                                                    </div>
+                                                    <div class="col-md-1 mt-4 d-flex justify-content-center">
                                                         <button type="submit" class="trans">
                                                             <svg class="icon-send"></svg>
                                                         </button>
-                                                        </div>
                                                     </div>
-                                                </form> 
-                                            </div>
+                                                </div>
+                                            </form> 
                                         </div>
                                     </div>
                                 </div>

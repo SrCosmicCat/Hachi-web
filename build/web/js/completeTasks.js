@@ -99,24 +99,33 @@ function showToast(t) {
 
 
 
-function completeTask(id) {
+function completeTask() {
     $.ajax({
-        url: "CompleteTask", 
-        data: {
-            taskId: id
-        },
+        url: "CompleteTask",
         type: "POST",
         success: function (result){
             showToast(toastTaskCompleted);
-            
-            /*
-            if (result == "true") {
-                console.log("xd");
-                exists = true;
-            }
-            else {
-                exists = false;
-            }*/
+        }
+    });
+}
+
+const formCommentSend = document.getElementById("formCommentSend");
+
+formCommentSend.addEventListener("submit", (e) => {
+    e.preventDefault();
+    sendComment();
+});
+
+function sendComment() {
+    $.ajax({
+        url: "CommentSend", 
+        data: {
+            newComment: $("#newComment").val()
+        },
+        type: "POST",
+        success: function (result){
+            //showToast(toastTaskCompleted);
+            location.reload();
         }
     });
 }
