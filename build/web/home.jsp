@@ -125,7 +125,7 @@
                                             <input type="text" class="form-control" id="inputAccessCode" name="inputAccessCode" placeholder="Access Code" maxlength="6">
                                             <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectJoin" alt="ERROR">
                                         </div>
-                                        <p>*The access code must be equal to 6 digits </p>
+                                        <p>*The access code must be equal to 6 digits</p>
                                         <div class="modal-footer d-flex justify-content-center">
                                             <button type="button" class="btn btn-lg" data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-lg">Join</button>
@@ -144,8 +144,6 @@
             <div class="container-fluid">
                 <hr>
                 <div class="hive">
-                    
-                    
                     <!-- Dashboard-->
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -188,7 +186,6 @@
                                         </div>
                                     </div>
                                     <!-- Modal create project -->
-                                    
                                     <%
                                         //Show projects
                                         for (int i=0; i<userProjects.length;i++) {
@@ -203,7 +200,6 @@
                                             out.print("</div>");
                                         }
                                     %>
-                                
                                 </div>
                                 
                                 <div class="project-box">

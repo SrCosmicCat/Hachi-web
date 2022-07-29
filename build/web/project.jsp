@@ -1,6 +1,7 @@
 <%@page import="models.Project"%>
 <%@page import="models.User"%>
 <%@page import="models.Task"%>
+<%@page import="models.Comment"%>
 <%@page import="db.ConnectionDB"%>
 <%@page import="javax.servlet.http.HttpSession"%>
 <%
@@ -130,75 +131,75 @@
                                             out.print("</button>");
                                         }
                                     %> 
-                                <!-- Modal create task -->
-                                <div class="modal fade" id="createTaskModal" tabindex="-1" aria-labelledby="createTaskModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title mx-5" id="createTaskModalLabel">Create new task</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            
-                                            <form class="form-create-task" method="POST" action="TaskRegister">
-                                                <div class="modal-body">
-                                                    <hr>
-                                                    <div class="form-group">
-                                                        <h2>Fill the following camps</h2>
-                                                       <label for="inputTaskName">Task Name</label>
-                                                        <div class="input-container">
-                                                            <input type="text" class="form-control" id="inputTaskName" name="taskName" placeholder="Task Name" maxlength="30">
-                                                            <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectName" alt="ERROR">
-                                                        </div>                                                        
-                                                        <label for="inputTaskDescription">Description</label>
-                                                        <div class="input-container">
-                                                            <textarea name="taskDescription" id="inputTaskDescription" rows="4" maxlength="100"></textarea>
-                                                        </div>
-                                                        <label for="inputTaskDate">Date</label>
-                                                        <div class="input-container">
-                                                            <input type="date" class="form-control" id="inputTaskDate" name="taskDate">
-                                                        </div>
-                                                        <label for="inputAssignTo">Assign to</label>
-                                                        <div class="input-container">
-                                                            <select name="inputAssignTo" id="inputAssignTo">
-                                                                <%
-                                                                    //Get members of project
-                                                                    if (userProjects.length != 0) {
-                                                                        User[] userMembers = connection.getProjectMembers(Integer.parseInt(session.getAttribute("idProj").toString()));
+                                    <!-- Modal create task -->
+                                    <div class="modal fade" id="createTaskModal" tabindex="-1" aria-labelledby="createTaskModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title mx-5" id="createTaskModalLabel">Create new task</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
 
-                                                                        for (int i=0; i<userMembers.length;i++) {
-                                                                            out.print("<option value="+i+">"+userMembers[i].getName()+"</option>");
+                                                <form class="form-create-task" method="POST" action="TaskRegister" id="formAddProjectTask">
+                                                    <div class="modal-body">
+                                                        <hr>
+                                                        <div class="form-group">
+                                                            <h2>Fill the following camps</h2>
+                                                           <label for="inputTaskName">Task Name</label>
+                                                            <div class="input-container">
+                                                                <input type="text" class="form-control" id="inputTaskName" name="taskName" placeholder="Task Name" maxlength="30">
+                                                                <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectName" alt="ERROR">
+                                                            </div>                                                        
+                                                            <label for="inputTaskDescription">Description</label>
+                                                            <div class="input-container">
+                                                                <textarea name="taskDescription" id="inputTaskDescription" rows="4" maxlength="100"></textarea>
+                                                            </div>
+                                                            <label for="inputTaskDate">Date</label>
+                                                            <div class="input-container">
+                                                                <input type="date" class="form-control" id="inputTaskDate" name="taskDate">
+                                                            </div>
+                                                            <label for="inputAssignTo">Assign to</label>
+                                                            <div class="input-container">
+                                                                <select name="inputAssignTo" id="inputAssignTo">
+                                                                    <%
+                                                                        //Get members of project
+                                                                        if (userProjects.length != 0) {
+                                                                            User[] userMembers = connection.getProjectMembers(userProjects[actualProject]);
+
+                                                                            for (int i=0; i<userMembers.length;i++) {
+                                                                                out.print("<option value="+i+">"+userMembers[i].getName()+"</option>");
+                                                                            }
                                                                         }
-                                                                    }
-                                                                %>
-                                                            </select>
+                                                                    %>
+                                                                </select>
+                                                            </div>
+                                                            <!-- IMPLEMENTATION LATER
+                                                            <label for="inputEmail">Assign To: </label>
+                                                            <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input" id="member1">
+                                                                <label for="member1"><p>Member 1</p></label>
+                                                                <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectName" alt="ERROR">
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input" id="member2">
+                                                                <label for="member2"><p>Member 2</p></label>
+                                                                <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectName" alt="ERROR">
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input" id="member3">
+                                                                <label for="member3"><p>Member 3</p></label>
+                                                                <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectName" alt="ERROR">
+                                                            </div> -->
                                                         </div>
-                                                        <!-- IMPLEMENTATION LATER
-                                                        <label for="inputEmail">Assign To: </label>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="member1">
-                                                            <label for="member1"><p>Member 1</p></label>
-                                                            <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectName" alt="ERROR">
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="member2">
-                                                            <label for="member2"><p>Member 2</p></label>
-                                                            <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectName" alt="ERROR">
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="member3">
-                                                            <label for="member3"><p>Member 3</p></label>
-                                                            <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectName" alt="ERROR">
-                                                        </div> -->
                                                     </div>
-                                                </div>
-                                                <div class="modal-footer d-flex justify-content-center">
-                                                    <button type="button" class="btn btn-lg" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-lg">Assign</button>
-                                                </div>
-                                            </form>
+                                                    <div class="modal-footer d-flex justify-content-center">
+                                                        <button type="button" class="btn btn-lg" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-lg">Assign</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                     <!-- Published Tasks -->
                                     <%   
                                         if (userProjects.length != 0) {
@@ -270,18 +271,17 @@
                                                     <h5 class="modal-title mx-5" id="createPostModalLabel">Create new post</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form class="form-add-member">
+                                                <form class="form-add-member" action="CommentSendProject" method="POST" id="formCommentSendProject">
                                                     <div class="modal-body">
                                                         <hr>
                                                         <div class="form-group">
                                                             <h2>Ask a question, comment suggestions, let others know what you think!</h2>
-                                                            <label for="inputEmail"></label>
+                                                            <br>
                                                             <div class="input-container">
-                                                                <input type="text" class="form-control" id="inputProjectName" placeholder="Leave a comment">
-                                                                <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectName" alt="ERROR">
+                                                                <textarea name="newCommentProject" id="newCommentProject" placeholder="Leave a comment" rows="4" maxlength="100"></textarea>
                                                             </div>
                                                         </div>
-                                                        <p>Write short sentences and be concise so people make time to read you </p>
+                                                        <p>Write short sentences and be concise so people make time to read you</p>
                                                     </div>
                                                     <div class="modal-footer d-flex justify-content-center">
                                                         <button type="button" class="btn btn-lg" data-bs-dismiss="modal">Close</button>
@@ -293,17 +293,18 @@
                                     </div>
 
                                     <!-- Published Comments -->
-                                    <div class="project-box">
-                                        <div class="d-flex">
-                                            <div>
-                                            <svg class="icon-post"></svg>
-                                            </div>
-                                            <div class="col-md mx-3">
-                                                <h5 class="normalText mt-2"> Miguel posted a comment: How do I kill the Chostito?</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
+                                    <%
+                                        Comment[] comments = connection.getProjectComments(userProjects[actualProject]);
+
+                                        for (int i=0; i<comments.length; i++) {
+                                            out.print("<div class=\"project-box\">");
+                                                out.print("<div class=\"d-flex\">");
+                                                    out.print("<div> <svg class=\"icon-post\"></svg> </div>");
+                                                    out.print("<div class=\"col-md mx-3\"> <h5 class=\"normalText mt-2\">"+comments[i].getAuthor()+" posted a comment: "+comments[i].getDescription()+"<br>"+comments[i].getDate()+"</h5> </div>");
+                                                out.print("</div>");
+                                            out.print("</div>");
+                                        }
+                                    %>
                                 </div>
                             </div>
 
@@ -311,16 +312,21 @@
                             <div class="row no-visible" id="secMembers">
                                 <div class="col-md mt-2">
                                     <!-- Add new member (only visible in admins side)-->
-                                    <button type="button" class="create-add-button" id="add-member" data-bs-toggle="modal" data-bs-target="#addMemberModal">                                    
-                                        <div class="d-flex">
-                                            <div>
-                                                <svg class="icon-new"></svg>
-                                            </div>
-                                            <div class="col-md mx-3">
-                                                <h5 class="normalText mt-2">Add new member</h5>
-                                            </div>
-                                        </div>
-                                    </button>
+                                    <%
+                                        // Create new task box (only visible in admins side)
+                                        if (admin.getId() == Integer.parseInt(session.getAttribute("idUser").toString())) {
+                                            out.print("<button type=\"button\" class=\"create-add-button\" id=\"create-task\" data-bs-toggle=\"modal\" data-bs-target=\"#addMemberModal\">");
+                                                out.print("<div class=\"d-flex\">");
+                                                    out.print("<div>");
+                                                        out.print("<svg class=\"icon-new\"></svg>");
+                                                    out.print("</div>");
+                                                    out.print("<div class=\"col-md mx-3\">");
+                                                        out.print("<h5 class=\"normalText mt-2\">Add new member</h5>");
+                                                    out.print("</div>");
+                                                out.print("</div>");
+                                            out.print("</button>");
+                                        }
+                                    %> 
                                     <!-- Modal add member -->
                                     <div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
@@ -329,14 +335,14 @@
                                                     <h5 class="modal-title mx-5" id="addMemberModalLabel">Add a new member</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form class="form-add-member">
+                                                <form class="form-add-member" action="ProjectAddMember" method="POST" id="formAddProjectMember">
                                                     <div class="modal-body">
                                                         <hr>
                                                         <div class="form-group">
                                                             <h2>Enter the email or username of your new member</h2>
-                                                            <label for="inputEmail">Email or username</label>
+                                                            <label for="usernameEmail">Email or username</label>
                                                             <div class="input-container">
-                                                                <input type="text" class="form-control" id="inputProjectName">
+                                                                <input type="text" class="form-control" id="usernameEmail" name="usernameEmail">
                                                                 <img src="resources/icons/errorIcon.png" class="input-icon no-visible" id="errorProjectName" alt="ERROR">
                                                             </div>
                                                         </div>
@@ -351,50 +357,21 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Actual members -->
+                                    <%
+                                        User[] members = connection.getProjectMembers(userProjects[actualProject]);
 
+                                        for (int i=0; i<members.length; i++) {
+                                            out.print("<div class=\"project-box\">");
+                                                out.print("<div class=\"d-flex\">");
+                                                    out.print("<div> <svg class=\"icon-member\"></svg> </div>");
+                                                    out.print("<div class=\"col-md mx-3\"> <h5 class=\"normalText mt-2\">"+members[i].getName()+"</h5> </div>");
+                                                out.print("</div>");
+                                            out.print("</div>");
+                                        }
+                                    %>
                                 </div>
-
-                                <!-- Actual members -->
-                                <div class="project-box">
-                                    <div class="d-flex">
-                                    <div>
-                                    <svg class="icon-member"></svg>
-                                    </div>
-                                    <div class="col-md mx-3">
-                                        <h5 class="normalText mt-2">Miguel Ángel Diosdado Rodriguez</h5>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="project-box">
-                                    <div class="d-flex">
-                                    <div>
-                                    <svg class="icon-member"></svg>
-                                    </div>
-                                    <div class="col-md mx-3">
-                                        <h5 class="normalText mt-2">Daniel González Guerrero</h5>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="project-box">
-                                    <div class="d-flex">
-                                    <div>
-                                    <svg class="icon-member"></svg>
-                                    </div>
-                                    <div class="col-md mx-3">
-                                        <h5 class="normalText mt-2">Christian Alegría Ruíz</h5>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="project-box">
-                                    <div class="d-flex">
-                                    <div>
-                                    <svg class="icon-member"></svg>
-                                    </div>
-                                    <div class="col-md mx-3">
-                                        <h5 class="normalText mt-2">Oscar Gabriel Reséndiz Ramírez</h5>
-                                    </div>
-                                    </div>
-                                </div>
+                                
                             </div>   
                         </div>
                     <!-- Footer -->
@@ -414,6 +391,7 @@
         </div>        
         <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>        
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="js/jquery-3.6.0.min.js"></script>
         <script src="js/project.js"></script>
     </body>
 </html>

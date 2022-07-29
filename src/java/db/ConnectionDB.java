@@ -250,6 +250,23 @@ public class ConnectionDB {
         }
     }
     
+    public int sendCommentProject(Comment c) {
+        //Obtain the date
+        LocalDate date = LocalDate.now();
+        //Generate sql query
+        String sql = "INSERT INTO comment_p (desc_com, date_com, id_user5, id_proj5) VALUES('"+c.getDescription()+"','"+date+"',"+c.getIdUser()+","+c.getIdProj()+")";
+        try {
+            connect();
+            int regs = smt.executeUpdate(sql);
+            disconnect();
+            return regs;
+        }
+        catch (SQLException ex) {
+            System.out.println(ex+sql);
+            return 0;
+        }
+    }
+    
     public int genUserId() {
         //Generate sql quey
         String sql = "SELECT MAX(id_user) FROM USERH";
@@ -622,8 +639,8 @@ public class ConnectionDB {
         
     }
     
-    public User[] getProjectMembers(int id) {
-        String sql = "CALL getProjectMembers("+id+")";
+    public User[] getProjectMembers(Project p) {
+        String sql = "CALL getProjectMembers("+p.getId()+")";
         
         try {
             List<User> list = new ArrayList<>();
@@ -895,9 +912,40 @@ public class ConnectionDB {
         }
     }
     
-public Comment[] getTaskComments(Task t) {
+    public Comment[] getTaskComments(Task t) {
         //Generate sql query
         String sql = "CALL getTaskComments("+t.getId()+")";
+        
+        try {
+            List<Comment> list = new ArrayList<>();
+            connect();
+            //execute sql query
+            rs = smt.executeQuery(sql);
+            
+            //obtain values of tasks
+            while(rs.next()) {
+                //Creates a tasks to send
+                Comment com = new Comment();
+                com.setAuthor(rs.getString("name_user"));
+                com.setDescription(rs.getString("desc_com"));
+                com.setDate(rs.getString("date_com"));
+                list.add(com);
+            }
+            Comment[] strArray = new Comment[list.size()];
+            strArray = list.toArray(strArray);
+            
+            disconnect();
+            return strArray;
+        }
+        catch (SQLException ex) {
+            System.out.println(ex+sql);
+            return null;
+        }
+    }
+
+    public Comment[] getProjectComments(Project p) {
+        //Generate sql query
+        String sql = "CALL getProjectComments("+p.getId()+")";
         
         try {
             List<Comment> list = new ArrayList<>();

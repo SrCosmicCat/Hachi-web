@@ -70,6 +70,75 @@ formUpdateUser.addEventListener("submit", (e) => {
     formUpdateUser.submit();
 });
  */
+
+const formAddProjectTask = document.getElementById("formAddProjectTask");
+const formCommentSendProject = document.getElementById("formCommentSendProject");
+const formAddProjectMember = document.getElementById("formAddProjectMember");
+
+formAddProjectTask.addEventListener("submit", (e) => {
+    e.preventDefault();
+    addProjectTask();
+});
+
+formCommentSendProject.addEventListener("submit", (e) => {
+    e.preventDefault();
+    sendComment();
+});
+
+formAddProjectMember.addEventListener("submit", (e) => {
+    e.preventDefault();
+    addMember();
+});
+
+function addProjectTask() {
+    $.ajax({
+        url: "TaskRegister",
+        data: {
+            taskName: $("#inputTaskName").val(),
+            taskDescription: $("#inputTaskDescription").val(),
+            taskDate: $("#inputTaskDate").val(),
+            inputAssignTo: $("#inputAssignTo").val()
+        },
+        type: "POST",
+        success: function (result){
+            //showToast(toastTaskCompleted);
+            //location.reload();
+            window.location.href = "project.jsp?project="+getParameterByName("project")+"&sec=tasks";
+        }
+    });
+}
+
+function sendComment() {
+    $.ajax({
+        url: "CommentSendProject", 
+        data: {
+            newCommentProject: $("#newCommentProject").val()
+        },
+        type: "POST",
+        success: function (result){
+            //showToast(toastTaskCompleted);
+            //location.reload();
+            window.location.href = "project.jsp?project="+getParameterByName("project")+"&sec=posts";
+        }
+    });
+}
+
+function addMember() {
+    $.ajax({
+        url: "ProjectAddMember", 
+        data: {
+            usernameEmail: $("#usernameEmail").val()
+        },
+        type: "POST",
+        success: function (result){
+            //showToast(toastTaskCompleted);
+            //location.reload();
+            window.location.href = "project.jsp?project="+getParameterByName("project")+"&sec=members";
+        }
+    });
+}
+
+
 function getParameterByName(variable) {
    var query = window.location.search.substring(1);
    var vars = query.split("&");

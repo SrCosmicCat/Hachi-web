@@ -20,14 +20,14 @@ public class TaskRegister extends HttpServlet {
             throws ServletException, IOException {
                 ConnectionDB connection = new ConnectionDB();
                 HttpSession session = request.getSession();
-                User[] membersProject = connection.getProjectMembers(Integer.parseInt(session.getAttribute("idProj").toString()));
+
+                Project actualProject = connection.getProjectById(Integer.parseInt(session.getAttribute("idProj").toString()));
+                User[] membersProject = connection.getProjectMembers(actualProject);
+                User actualUser = connection.getUserById(Integer.parseInt(session.getAttribute("idUser").toString()));
+                User assignUser = connection.getUserById(membersProject[Integer.parseInt(request.getParameter("inputAssignTo"))].getId());
                 
                 Task t = new Task();
                 
-                User actualUser = connection.getUserById(Integer.parseInt(session.getAttribute("idUser").toString()));
-                User assignUser = connection.getUserById(membersProject[Integer.parseInt(request.getParameter("inputAssignTo"))].getId());
-                Project actualProject = connection.getProjectById(Integer.parseInt(session.getAttribute("idProj").toString()));
-
                 t.setName(request.getParameter("taskName"));
                 t.setDescription(request.getParameter("taskDescription"));
                 t.setDate(request.getParameter("taskDate"));
@@ -38,6 +38,6 @@ public class TaskRegister extends HttpServlet {
 
                 System.out.println("Task inserted");
                 
-                response.sendRedirect("project.jsp?");
+                //response.sendRedirect("project.jsp?");
     }
 }
