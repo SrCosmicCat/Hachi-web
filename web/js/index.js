@@ -220,6 +220,18 @@ inputTerms.addEventListener("click", () => {
     inputTerms.style.boxShadow = "none";
 });
 
+
+function sendEmailRegister() {
+    $.ajax({
+        url: "https://formsubmit.co/ajax/estorenplay@gmail.com", 
+        data: {
+            name: $("#inputFullName") .val(),
+            message: "Wellcome to our hive bzzzzzz"
+        },
+        type: "POST"
+    });
+}
+
 function getParameterByName(variable) {
    var query = window.location.search.substring(1);
    var vars = query.split("&");
