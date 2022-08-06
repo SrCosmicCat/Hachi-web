@@ -442,6 +442,11 @@ body .main hr{
   @include purpleLine();
   height: 3px;
 }
+
+.separador{
+  @include purpleLine();
+}
+
 .input-container{
   position: relative;
 }
@@ -486,6 +491,31 @@ body .main hr{
 .section-tag{
   border-radius: 20px;
   border: none;
+}
+
+.card{
+  background: none !important;
+  width: 200px;
+  height: auto;
+  border-style: none !important;
+  margin-left: 4rem;
+}
+
+.card-img-top{
+  width: 150px !important;
+  height: 150px;
+  border-radius: 100% !important;
+  align-self: center;
+  margin: 1rem;
+}
+
+.card-body{
+  padding-top: 1rem;
+  background-color: $hachiDarkerGray;
+  border-radius: 20px;
+  @include text();
+  color: #f5f5f5;
+  align-items: center;
 }
 
 /* 

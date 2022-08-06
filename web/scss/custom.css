@@ -421,6 +421,10 @@ body .main hr {
   height: 3px;
 }
 
+.separador {
+  background-color: #4111CA;
+}
+
 .input-container {
   position: relative;
 }
@@ -472,6 +476,37 @@ body .main hr {
 .section-tag {
   border-radius: 20px;
   border: none;
+}
+
+.card {
+  background: none !important;
+  width: 200px;
+  height: auto;
+  border-style: none !important;
+  margin-left: 4rem;
+}
+
+.card-img-top {
+  width: 150px !important;
+  height: 150px;
+  border-radius: 100% !important;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin: 1rem;
+}
+
+.card-body {
+  padding-top: 1rem;
+  background-color: #111111;
+  border-radius: 20px;
+  font-family: 'MADE_Tommy_Soft';
+  font-size: 20px;
+  font-weight: lighter;
+  color: #f5f5f5;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 /* 
